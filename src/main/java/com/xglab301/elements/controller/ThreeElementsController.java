@@ -3,6 +3,8 @@ package com.xglab301.elements.controller;
 import com.xglab301.elements.Entities.UserData;
 import com.xglab301.elements.db.HbaseUtils;
 import com.xglab301.elements.db.JedisPoolUtil;
+import com.xglab301.elements.mapper.DianXinController;
+import com.xglab301.elements.mapper.ScheduleTask;
 import com.xglab301.elements.mapper.ThreeElementsMapper;
 import com.xglab301.elements.utils.AESUtil;
 import com.xglab301.elements.utils.DataCatch;

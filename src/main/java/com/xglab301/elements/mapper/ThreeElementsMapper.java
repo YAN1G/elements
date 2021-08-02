@@ -2,6 +2,8 @@ package com.xglab301.elements.mapper;
 
 import com.xglab301.elements.db.HbaseUtils;
 import com.xglab301.elements.utils.MD5;
+
+import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,8 +13,13 @@ import java.util.Date;
 
 @RestController
 public class ThreeElementsMapper {
+
+
+    private static Logger logger = Logger.getLogger(ThreeElementsMapper.class);
     @RequestMapping("/hbaseselect")
     public synchronized String HbaseSelect(@RequestParam String mdn,@RequestParam  String encrypt,@RequestParam  String idNo,@RequestParam  String name)throws Exception{
+        logger.info("11111");
+
         String idNoExits;//数据库中idno
         String nameExits;//数据库中name
         String timeExits;
@@ -24,6 +31,7 @@ public class ThreeElementsMapper {
         calendar.add(Calendar.MONTH, -1);//月份减一
         System.out.println(calendar.getTime().getTime());//输出格式化的日期
         //if(Long.parseLong(timeExits)>=calendar.getTime().getTime()){
+
         if(mdn.length()>20){
             if(HbaseUtils.getInstance().getRow("THREEELEMENTS",mdn).isEmpty()) {
                 System.out.println(1);
@@ -45,8 +53,6 @@ public class ThreeElementsMapper {
         if(idNoExits.equals(MD5.getInstance().getMD5(idNo))&&nameExits.equals(MD5.getInstance().getMD5(name))&&(Long.parseLong(timeExits)>=calendar.getTime().getTime()))return "success";
         System.out.println("-------");
         return "error";
-       // }
-       // return "error";
     }
 
     public static void main(String[] args) throws Exception{

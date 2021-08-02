@@ -1,16 +1,11 @@
-package com.xglab301.elements.controller;
+package com.xglab301.elements.mapper;
 
-import com.xglab301.elements.Entities.ParamsData;
 import com.xglab301.elements.Entities.UserData;
-import com.xglab301.elements.db.HbaseUtils;
-import com.xglab301.elements.mapper.ThreeElementsInsert;
-import com.xglab301.elements.utils.MD5;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service

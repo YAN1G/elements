@@ -1,4 +1,4 @@
-package com.xglab301.elements.controller;
+package com.xglab301.elements.mapper;
 
 import com.xglab301.elements.utils.AESUtil;
 import com.xglab301.elements.utils.DataCatch;
@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
-//@RestController
+
+@RestController
 public class DianXinController {
-   // @RequestMapping("/dianxinselect")
+    @RequestMapping("/dianxinselect")
     public synchronized String ElementsSelect(@RequestParam String idType, @RequestParam String mdn, @RequestParam String encrypt, @RequestParam String idNo, @RequestParam String name)throws Exception {
         DataCatch dataCatch=new DataCatch();
         String url="http://sanys.86cate.com:8247/sanys/api/v1/invoke/main";
