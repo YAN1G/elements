@@ -36,7 +36,6 @@ public class ThreeElementsController {
         Jedis jedis = null;
         JedisPool jedisPool = JedisPoolUtil.getJedisPoolInstance();
         String key = MD5.getInstance().getMD5(mdn + idNo + name);
-        String value = "{\"code\":221,\"message\":\"Error Value\"}";
         jedis = jedisPool.getResource();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date now = new Date();
@@ -50,7 +49,7 @@ public class ThreeElementsController {
                 }
                 long enddian = System.currentTimeMillis();
                 long timedian = enddian - start1;
-                logger.info(enddian-start1);
+                //logger.info(enddian-start1);
                 String spit = str.substring(104, 123);
                 logger.info("Redis查询成功,调用时间为：" + timedian);
                 return str.replace(spit, sdf.format(afterDate));
@@ -76,7 +75,7 @@ public class ThreeElementsController {
                 if (res.getString(Config.CODE).equals(Config.SUCCESS_CODE) || res.getString(Config.CODE).equals(Config.ERROR_COED221) || res.getString(Config.CODE).equals(Config.ERROR_COED224)){
                     jedis.set(key, data);
                     jedis.expire(key, 86400);
-                    logger.info("A:数据成功存入Redis");
+                    logger.info("数据成功存入Redis");
                 }
 
             } catch (Exception e) {
@@ -110,13 +109,13 @@ public class ThreeElementsController {
             }
             long end = System.currentTimeMillis();
             long res2 = end - start;
-            logger.info("A:电信接口调用时间"+res2);
+            //logger.info("电信接口调用时间"+res2);
             System.out.println(res2);
             System.out.println(data);
 
             long end2 = System.currentTimeMillis();
             long res3 = end2 - start1;
-            logger.info("A:电信接口总调用时长" + res3);
+            logger.info("电信接口总调用时长" + res3);
             logger.info("电信接口查询成功，返回正确");
             return data;
         }
