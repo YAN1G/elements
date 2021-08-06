@@ -26,20 +26,11 @@ public class DianXinController {
         paramMap.put("idNo",idNo);
         JSONObject paramsJson = JSONObject.fromObject(paramMap);
         String params=paramsJson.toString();
-//           System.out.println(params);
         String miParams = AESUtil.encrypt(params, "6369BE91F580F990015D709D4D69FA41");
         miParamMap.put("api_userid","SWyjsUpSySb");
         miParamMap.put("api_data",miParams);
         JSONObject json = JSONObject.fromObject(miParamMap);
         String data=dataCatch.testPost(url,json.toString());
-        JSONObject res= JSONObject.fromObject(data);
-
-       // System.out.println(res2);
-       // System.out.println("6:"+System.currentTimeMillis());
-//        System.out.println("计费api");
-//        System.out.println(res);
-//        System.out.println(res.getString("code"));
-//        System.out.println(data);
         return data;
     }
     }

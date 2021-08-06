@@ -160,7 +160,7 @@ public class MD5 {
     private MD5(){}
 
     public static void main(String[] args){
-        String str=MD5.getInstance().getMD5("17325923402");
+        String str=MD5.getInstance().getMD5("13301177672");
         System.out.println(str);
     }
 

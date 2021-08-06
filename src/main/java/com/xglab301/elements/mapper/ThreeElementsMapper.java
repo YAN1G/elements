@@ -1,5 +1,6 @@
 package com.xglab301.elements.mapper;
 
+import com.xglab301.elements.config.Config;
 import com.xglab301.elements.db.HbaseUtils;
 import com.xglab301.elements.utils.MD5;
 
@@ -23,39 +24,35 @@ public class ThreeElementsMapper {
         String idNoExits;//数据库中idno
         String nameExits;//数据库中name
         String timeExits;
-        System.out.println(mdn);
-        System.out.println(MD5.getInstance().getMD5(mdn));
         Date date = new Date();//当前日期
         Calendar calendar = Calendar.getInstance();//日历对象
         calendar.setTime(date);//设置当前日期
         calendar.add(Calendar.MONTH, -1);//月份减一
-        System.out.println(calendar.getTime().getTime());//输出格式化的日期
-        //if(Long.parseLong(timeExits)>=calendar.getTime().getTime()){
-
         if(mdn.length()>20){
-            if(HbaseUtils.getInstance().getRow("THREEELEMENTS",mdn).isEmpty()) {
-                System.out.println(1);
-                return "error";
+            if(HbaseUtils.getRow(Config.TALBE,mdn).isEmpty()) {
+                return Config.ERROR;
             }
-            idNoExits=HbaseUtils.getInstance().getRowQualifier("THREEELEMENTS",mdn,"info","idNo");
-            nameExits=HbaseUtils.getInstance().getRowQualifier("THREEELEMENTS",mdn,"info","name");
-            timeExits=HbaseUtils.getInstance().getRowQualifier("THREEELEMENTS",mdn,"info","create_time");
-            if(idNoExits.equals(idNo)&&nameExits.equals(name)&&(Long.parseLong(timeExits)>=calendar.getTime().getTime()))return "success";
-            return "error";
+            idNoExits=HbaseUtils.getInstance().getRowQualifier(Config.TALBE,mdn,"info","idNo");
+            nameExits=HbaseUtils.getInstance().getRowQualifier(Config.TALBE,mdn,"info","name");
+            timeExits=HbaseUtils.getInstance().getRowQualifier(Config.TALBE,mdn,"info","create_time");
+            if(idNoExits.equals(idNo)&&nameExits.equals(name)&&(Long.parseLong(timeExits)>=calendar.getTime().getTime())){
+                return "success";
+            }
+            return Config.ERROR;
         }
-        if(HbaseUtils.getInstance().getRow("THREEELEMENTS",MD5.getInstance().getMD5(mdn)).isEmpty()){
-            System.out.println("empty");
-            return "error";
+        if(HbaseUtils.getRow(Config.TALBE,MD5.getInstance().getMD5(mdn)).isEmpty()){
+            return Config.ERROR;
         }
-        idNoExits=HbaseUtils.getInstance().getRowQualifier("THREEELEMENTS",MD5.getInstance().getMD5(mdn),"info","idNo");
-        nameExits=HbaseUtils.getInstance().getRowQualifier("THREEELEMENTS",MD5.getInstance().getMD5(mdn),"info","name");
-        timeExits=HbaseUtils.getInstance().getRowQualifier("THREEELEMENTS",MD5.getInstance().getMD5(mdn),"info","create_time");
-        if(idNoExits.equals(MD5.getInstance().getMD5(idNo))&&nameExits.equals(MD5.getInstance().getMD5(name))&&(Long.parseLong(timeExits)>=calendar.getTime().getTime()))return "success";
-        System.out.println("-------");
+        idNoExits=HbaseUtils.getInstance().getRowQualifier(Config.TALBE,MD5.getInstance().getMD5(mdn),"info","idNo");
+        nameExits=HbaseUtils.getInstance().getRowQualifier(Config.TALBE,MD5.getInstance().getMD5(mdn),"info","name");
+        timeExits=HbaseUtils.getInstance().getRowQualifier(Config.TALBE,MD5.getInstance().getMD5(mdn),"info","create_time");
+        if(idNoExits.equals(MD5.getInstance().getMD5(idNo))&&nameExits.equals(MD5.getInstance().getMD5(name))&&(Long.parseLong(timeExits)>=calendar.getTime().getTime())){
+            return "success";
+        }
         return "error";
     }
 
     public static void main(String[] args) throws Exception{
-        System.out.println(new ThreeElementsMapper().HbaseSelect("17377940439","clear","532325200312260924","杨润婷"));
+        //System.out.println(new ThreeElementsMapper().HbaseSelect("17377940439","clear","532325200312260924","杨润婷"));
     }
 }

@@ -26,7 +26,7 @@ public class ScheduleTask {
             logger.info(e.toString());
         }
 
-        logger.info(String.valueOf(System.currentTimeMillis()));
+        //logger.info(String.valueOf(System.currentTimeMillis()));
 
     }
 }

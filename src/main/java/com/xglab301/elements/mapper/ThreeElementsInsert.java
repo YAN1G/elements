@@ -1,5 +1,6 @@
 package com.xglab301.elements.mapper;
 
+import com.xglab301.elements.config.Config;
 import com.xglab301.elements.db.HbaseUtils;
 import com.xglab301.elements.utils.MD5;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,19 +12,19 @@ import java.util.Date;
 public class ThreeElementsInsert {
     @RequestMapping("/insert")
     public void DataInsert(@RequestParam String idType, @RequestParam String mdn, @RequestParam String encrypt, @RequestParam String idNo, @RequestParam String name){
-        HbaseUtils.getInstance().put("THREEELEMENTS", mdn, "info", "create_time",String.valueOf(new Date().getTime()));
-        HbaseUtils.getInstance().put("THREEELEMENTS", mdn, "info", "idType", idType);
-        HbaseUtils.getInstance().put("THREEELEMENTS", mdn, "info", "idNo", idNo);
-        HbaseUtils.getInstance().put("THREEELEMENTS", mdn, "info", "encrypt", encrypt);
-        HbaseUtils.getInstance().put("THREEELEMENTS", mdn, "info", "name", name);
+        HbaseUtils.getInstance().put(Config.TALBE, mdn, "info", "create_time",String.valueOf(System.currentTimeMillis()));
+        HbaseUtils.getInstance().put(Config.TALBE, mdn, "info", "idType", idType);
+        HbaseUtils.getInstance().put(Config.TALBE, mdn, "info", "idNo", idNo);
+        HbaseUtils.getInstance().put(Config.TALBE, mdn, "info", "encrypt", encrypt);
+        HbaseUtils.getInstance().put(Config.TALBE, mdn, "info", "name", name);
     }
     @RequestMapping("/insertmd5")
     public synchronized void MD5DataInsert(@RequestParam String idType, @RequestParam String mdn, @RequestParam String encrypt, @RequestParam String idNo, @RequestParam String name){
-        HbaseUtils.getInstance().put("THREEELEMENTS", MD5.getInstance().getMD5(mdn), "info", "create_time",String.valueOf(new Date().getTime()));
-        HbaseUtils.getInstance().put("THREEELEMENTS", MD5.getInstance().getMD5(mdn), "info", "idType", idType);
-        HbaseUtils.getInstance().put("THREEELEMENTS", MD5.getInstance().getMD5(mdn), "info", "idNo", MD5.getInstance().getMD5(idNo));
-        HbaseUtils.getInstance().put("THREEELEMENTS", MD5.getInstance().getMD5(mdn), "info", "encrypt", encrypt);
-        HbaseUtils.getInstance().put("THREEELEMENTS", MD5.getInstance().getMD5(mdn), "info", "name", MD5.getInstance().getMD5(name));
+        HbaseUtils.getInstance().put(Config.TALBE, MD5.getInstance().getMD5(mdn), "info", "create_time",String.valueOf(System.currentTimeMillis()));
+        HbaseUtils.getInstance().put(Config.TALBE, MD5.getInstance().getMD5(mdn), "info", "idType", idType);
+        HbaseUtils.getInstance().put(Config.TALBE, MD5.getInstance().getMD5(mdn), "info", "idNo", MD5.getInstance().getMD5(idNo));
+        HbaseUtils.getInstance().put(Config.TALBE, MD5.getInstance().getMD5(mdn), "info", "encrypt", encrypt);
+        HbaseUtils.getInstance().put(Config.TALBE, MD5.getInstance().getMD5(mdn), "info", "name", MD5.getInstance().getMD5(name));
     }
 
     public static void main(String[] args) {
